@@ -5,7 +5,7 @@ var weatherController = require('../controllers/weatherController');
 
 
 router.route('/getWeather')
-    .get(weatherController.getWeather);
+    .post(weatherController.getWeather);
 
 // Export API routes
 module.exports = router;

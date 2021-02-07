@@ -1,8 +1,8 @@
 const axios = require('axios');
+const dotenv = require('dotenv');
 const openWeather = {
     url: "http://api.openweathermap.org/geo/1.0/direct?"
 };
-const WEATHER_API_KEY = "183de10f756006b3f9fece5fddd77da9";
 const axiosConfig = {
     headers: {
         'Content-Type': 'application/json',
@@ -10,8 +10,11 @@ const axiosConfig = {
     }
 };
 
+dotenv.config();
+const WEATHER_API_KEY = process.env.WEATHER_API_KEY;
+
 exports.getWeather = function (req, res){
-    let weatherEndpoint = getWeatherEndpoint('Toronto',5);
+    let weatherEndpoint = getWeatherEndpoint(req.body.location,req.body.limit);
     axios.get(weatherEndpoint,axiosConfig)
         .then(weatherAPIResponse => {
             if(weatherAPIResponse.status === 200){
